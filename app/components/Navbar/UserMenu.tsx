@@ -6,6 +6,7 @@ import Avatar from "../Avatar";
 import MenuItem from "./MenuItem";
 import useRegisterModel from "@/app/hooks/useRegisterModel";
 import useLoginModel from "@/app/hooks/useLoginModel";
+import useRentModal from "@/app/hooks/useRentModal";
 import { signOut } from "next-auth/react";
 import { SafeUser } from "@/app/types";
 
@@ -17,16 +18,25 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
   const [isOpen, setIsOpen] = useState(false);
   const loginModal = useLoginModel();
   const registerModal = useRegisterModel();
+  const rentModal = useRentModal();
+
   const toggleOpen = useCallback(() => {
     setIsOpen((value) => !value);
   }, []);
+
+  const onRent = useCallback(() => {
+    if (!currentUser) {
+      return loginModal.onOpen();
+    }
+
+    rentModal.onOpen();
+    
+  }, [currentUser, loginModal, rentModal]);
   return (
     <div className="relative">
       <div className="flex flex-row items-center gap-3">
         <div
-          //   onClick={() => {
-          //     console.log("Clicked");
-          //   }}
+          onClick={onRent}
           className="
                     hidden
                     md:block
@@ -88,7 +98,10 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
                 <MenuItem onClick={() => {}} label="My favorites" />
                 <MenuItem onClick={() => {}} label="My reservations" />
                 <MenuItem onClick={() => {}} label="My properties" />
-                <MenuItem onClick={() => {}} label="Aircnc my home" />
+                <MenuItem
+                  onClick={() => rentModal.onOpen()}
+                  label="Aircnc my home"
+                />
                 <hr />
                 <MenuItem onClick={() => signOut()} label="Sign Out" />
               </>
