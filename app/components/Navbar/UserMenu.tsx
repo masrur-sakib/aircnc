@@ -30,7 +30,6 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
     }
 
     rentModal.onOpen();
-    
   }, [currentUser, loginModal, rentModal]);
   return (
     <div className="relative">
