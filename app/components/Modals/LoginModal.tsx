@@ -5,8 +5,8 @@ import { AiFillGithub } from "react-icons/ai";
 import { FcGoogle } from "react-icons/fc";
 import { useCallback, useState } from "react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
-import useRegisterModel from "@/app/hooks/useRegisterModel";
-import useLoginModel from "@/app/hooks/useLoginModel";
+import useRegisterModal from "@/app/hooks/useRegisterModal";
+import useLoginModal from "@/app/hooks/useLoginModal";
 import { useRouter } from "next/navigation";
 import { signIn } from "next-auth/react";
 import { FinishedOptions } from "stream";
@@ -18,8 +18,8 @@ import Button from "../Button";
 import RegisterModal from "./RegisterModal";
 
 const LoginModal = () => {
-  const registerModal = useRegisterModel();
-  const loginModal = useLoginModel();
+  const registerModal = useRegisterModal();
+  const loginModal = useLoginModal();
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
   const {
