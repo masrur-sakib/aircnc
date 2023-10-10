@@ -43,15 +43,16 @@ const ListingClient: React.FC<ListingClientProps> = ({
   const disabledDates = useMemo(() => {
     let dates: Date[] = [];
 
-    reservations.forEach((reservation) => {
+    reservations.forEach((reservation: any) => {
       const range = eachDayOfInterval({
         start: new Date(reservation.startDate),
         end: new Date(reservation.endDate),
       });
 
       dates = [...dates, ...range];
-      return dates;
     });
+
+    return dates;
   }, [reservations]);
 
   const onCreateReservation = useCallback(() => {
@@ -65,7 +66,7 @@ const ListingClient: React.FC<ListingClientProps> = ({
         totalPrice,
         startDate: dateRange.startDate,
         endDate: dateRange.endDate,
-        listing: listing?.id,
+        listingId: listing?.id,
       })
       .then(() => {
         toast.success("Listing reserved!");
