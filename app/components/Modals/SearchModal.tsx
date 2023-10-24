@@ -3,10 +3,12 @@
 import { useRouter, useSearchParams } from "next/navigation";
 import useSearchModal from "@/app/hooks/useSearchModal";
 import Modal from "./Modal";
-import { useMemo, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { Range } from "react-date-range";
 import dynamic from "next/dynamic";
+import qs from "query-string";
 import { CountrySelectValue } from "../inputs/CountrySelect";
+import { formatISO } from "date-fns";
 
 enum STEPS {
   LOCATION = 0,
@@ -37,6 +39,60 @@ const SearchModal = () => {
       }),
     [location]
   );
+
+  const onBack = useCallback(() => {
+    setStep((value) => value - 1);
+  }, []);
+
+  const onNext = useCallback(() => {
+    setStep((value) => value + 1);
+  }, []);
+
+  const onSubmit = useCallback(async () => {
+    if (step !== STEPS.INFO) {
+      return onNext();
+    }
+
+    let currentQuery = {};
+    if (params) {
+      currentQuery = qs.parse(params.toString());
+    }
+    const updatedQuery: any = {
+      ...currentQuery,
+      locationValue: location?.value,
+      guestCount,
+      roomCount,
+      bathroomCount,
+    };
+    if (dateRange.startDate) {
+      updatedQuery.startDate = formatISO(dateRange.startDate);
+    }
+    if (dateRange.endDate) {
+      updatedQuery.endDate = formatISO(dateRange.endDate);
+    }
+    const url = qs.stringifyUrl(
+      {
+        url: "/",
+        query: updatedQuery,
+      },
+      { skipNull: true }
+    );
+
+    setStep(STEPS.LOCATION);
+    searchModal.onClose();
+    router.push(url);
+  }, [
+    step,
+    searchModal,
+    location,
+    router,
+    guestCount,
+    roomCount,
+    bathroomCount,
+    dateRange,
+    onNext,
+    params,
+  ]);
   return (
     <Modal
       isOpen={searchModal.isOpen}
