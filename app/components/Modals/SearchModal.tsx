@@ -93,6 +93,21 @@ const SearchModal = () => {
     onNext,
     params,
   ]);
+
+  const actionLabel = useMemo(() => {
+    if (step === STEPS.INFO) {
+      return "Search";
+    }
+    return "Next";
+  }, [step]);
+
+  const secondaryActionLabel = useMemo(() => {
+    if (step === STEPS.LOCATION) {
+      return undefined;
+    }
+    return "Back";
+  }, [step]);
+
   return (
     <Modal
       isOpen={searchModal.isOpen}
