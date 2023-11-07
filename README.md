@@ -1,10 +1,10 @@
 # Aircnc
 
 ## Full Stack Airbnb Clone with Next.js 13 App Router: React, Tailwind, Prisma, MongoDB, NextAuth
-
 It's a Hotel booking website where you can book hotel rooms online from anywhere. This is mainly developed with typescript, Next.js, Next Auth, Prisma, Tailwind etc. Backend work has been done with the help of Prisma. MongoDB is Used as for data storage. Authentication can also be done with Google sign in & GitHub sign in.
 
-[Project Demo](https://msakib.com/)
+
+![Aircnc](https://github.com/masrur-sakib/aircnc/assets/38833172/8abfbc0a-9f00-4049-bacd-756a4d6a8bab)
 
 Features:
 
@@ -42,7 +42,7 @@ Features:
 ### Cloning the repository
 
 ```shell
-git clone https://github.com/AntonioErdeljac/next13-airbnb-clone.git
+git clone https://github.com/masrur-sakib/aircnc.git
 ```
 
 ### Install packages
